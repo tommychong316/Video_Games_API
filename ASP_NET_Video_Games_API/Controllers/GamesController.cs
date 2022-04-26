@@ -3,17 +3,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP_NET_Video_Games_API.Controllers
-{
-    // api/examples
+{   // api/Games
     [Route("api/[controller]")]
     [ApiController]
-    public class ExamplesController : ControllerBase
+    public class GamesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-
-        public ExamplesController(ApplicationDbContext context)
+        public GamesController(ApplicationDbContext context)
         {
-            _context = context;
+               _context = context;
         }
 
         [HttpGet]
@@ -23,13 +21,11 @@ namespace ASP_NET_Video_Games_API.Controllers
 
             return Ok(videoGamePublishers);
         }
-
-        [HttpGet("{pubName}")]
-        public IActionResult GetGamesByPublisher(string pubName)
+        [HttpGet("{id}")]
+        public IActionResult GetGamesByPublisher(int id)
         {
-            var videoGames = _context.VideoGames.Where(vg => vg.Publisher == pubName);
+            var videoGames = _context.VideoGames.Where(vg => vg.Id == id);
             return Ok(videoGames);
-        }
-
+        } 
     }
 }
